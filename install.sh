@@ -19,9 +19,8 @@ eval "$(pyenv virtualenv-init -)"
 
 # Install all python versions
 for v in "${PYTHON_VERSIONS[@]}"; do
-    pyenv install $v &
+    pyenv install $v
 done
-wait
 
 # Install pip in all python versions
 for v in "${PYTHON_VERSIONS[@]}"; do
