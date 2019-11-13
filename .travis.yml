@@ -11,13 +11,16 @@ script:
   - docker run --rm shushen/tox python3.5 --version
   - docker run --rm shushen/tox python3.6 --version
   - docker run --rm shushen/tox python3.7 --version
+  - docker run --rm shushen/tox python3.8 --version
 
-  - docker run --rm shushen/tox test -f /root/.pyenv/versions/2.7.15/bin/tox
-  - docker run --rm shushen/tox test -f /root/.pyenv/versions/3.5.6/bin/tox
-  - docker run --rm shushen/tox test -f /root/.pyenv/versions/3.6.6/bin/tox
-  - docker run --rm shushen/tox test -f /root/.pyenv/versions/3.7.0/bin/tox
+  - docker run --rm shushen/tox test -f /root/.pyenv/versions/2.7.17/bin/tox
+  - docker run --rm shushen/tox test -f /root/.pyenv/versions/3.5.9/bin/tox
+  - docker run --rm shushen/tox test -f /root/.pyenv/versions/3.6.9/bin/tox
+  - docker run --rm shushen/tox test -f /root/.pyenv/versions/3.7.5/bin/tox
+  - docker run --rm shushen/tox test -f /root/.pyenv/versions/3.8.0/bin/tox
 
-  - docker run --rm shushen/tox test -f /root/.pyenv/versions/2.7.15/bin/pip
-  - docker run --rm shushen/tox test -f /root/.pyenv/versions/3.5.6/bin/pip
-  - docker run --rm shushen/tox test -f /root/.pyenv/versions/3.6.6/bin/pip
-  - docker run --rm shushen/tox test -f /root/.pyenv/versions/3.7.0/bin/pip
+  - docker run --rm shushen/tox test -f /root/.pyenv/versions/2.7.17/bin/pip
+  - docker run --rm shushen/tox test -f /root/.pyenv/versions/3.5.9/bin/pip
+  - docker run --rm shushen/tox test -f /root/.pyenv/versions/3.6.9/bin/pip
+  - docker run --rm shushen/tox test -f /root/.pyenv/versions/3.7.5/bin/pip
+  - docker run --rm shushen/tox test -f /root/.pyenv/versions/3.8.0/bin/pip
