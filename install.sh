@@ -1,7 +1,7 @@
 #!/bin/bash
 
-PYTHON_VERSIONS=(2.7.15 3.5.6 3.6.6 3.7.0)
-PYTHON_GLOBAL_VERSION=3.7.0
+PYTHON_VERSIONS=(2.7.17 3.5.9 3.6.9 3.7.5 3.8.0)
+PYTHON_GLOBAL_VERSION=3.7.5
 
 # Install pyenv
 curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer -o /pyenv-installer
