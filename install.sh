@@ -1,13 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-PYTHON_VERSIONS=(2.7.17 3.5.9 3.6.9 3.7.5 3.8.0)
-PYTHON_GLOBAL_VERSION=3.7.5
+set -ex
+
+readarray -t PYTHON_VERSIONS < PYTHON_VERSIONS
+echo "${PYTHON_VERSIONS[@]}"
 
 # Install pyenv
-curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer -o /pyenv-installer
-touch /root/.bashrc
-/bin/ln -s /root/.bashrc /root/.bash_profile
-/bin/bash /pyenv-installer
+curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer -o /tmp/pyenv-installer
+touch ~/.bashrc
+/bin/ln -s ~/.bashrc ~/.bash_profile || true
+/bin/bash /tmp/pyenv-installer
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile
 echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile
 echo 'eval "$(pyenv init -)"' >> ~/.bash_profile
@@ -37,9 +39,9 @@ done
 wait
 
 # Set global python version
-pyenv global $PYTHON_GLOBAL_VERSION "${PYTHON_VERSIONS[@]}"
+pyenv global "${PYTHON_VERSIONS[@]}"
 
 # Cleanup
-rm /pyenv-installer
+rm /tmp/pyenv-installer
 rm -rf /tmp/python*
 rm -rf /tmp/pip*
