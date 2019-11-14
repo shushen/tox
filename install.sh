@@ -2,9 +2,6 @@
 
 set -ex
 
-readarray -t PYTHON_VERSIONS < PYTHON_VERSIONS
-echo "${PYTHON_VERSIONS[@]}"
-
 # Install pyenv
 curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer -o /tmp/pyenv-installer
 touch ~/.bashrc
@@ -19,29 +16,43 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-# Install all python versions
+
+# Find latest versions
+readarray -t PYTHON_VERSIONS < PYTHON_VERSIONS
+
+VERSIONS=()
+pyenv install -l > /tmp/all_pyenv_versions
 for v in "${PYTHON_VERSIONS[@]}"; do
+    MAJOR=$(echo $v | awk -F. '{print $1}')
+    MINOR=$(echo $v | awk -F. '{print $2}')
+    MICRO=$(cat /tmp/all_pyenv_versions | sed -n "s/^[ tab]\+${MAJOR}\.${MINOR}\.\([0-9]\+\)/\1/p" |sort -rgu | head -1)
+    VERSIONS+=("${MAJOR}.${MINOR}.${MICRO}")
+done
+
+# Install all python versions
+for v in "${VERSIONS[@]}"; do
     pyenv install $v
 done
 
 # Install pip in all python versions
-for v in "${PYTHON_VERSIONS[@]}"; do
+for v in "${VERSIONS[@]}"; do
     pyenv shell $v
     pip install -U pip &
 done
 wait
 
 # Install tox in all python versions
-for v in "${PYTHON_VERSIONS[@]}"; do
+for v in "${VERSIONS[@]}"; do
     pyenv shell $v
     pip install -U tox &
 done
 wait
 
 # Set global python version
-pyenv global "${PYTHON_VERSIONS[@]}"
+pyenv global "${VERSIONS[@]}"
 
 # Cleanup
 rm /tmp/pyenv-installer
 rm -rf /tmp/python*
 rm -rf /tmp/pip*
+rm -rf /tmp/all_pyenv_versions
