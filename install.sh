@@ -44,7 +44,7 @@ wait
 # Install tox in all python versions
 for v in "${VERSIONS[@]}"; do
     pyenv shell $v
-    pip install -U tox &
+   # pip install -U tox &
 done
 wait
 
