@@ -10,9 +10,9 @@ script:
   - |
       #!/usr/bin/env bash
       set -ex
-      readarray -t PTYHON_VERSIONS < PYTHON_VERSIONS
+      readarray -t PYTHON_VERSIONS < PYTHON_VERSIONS
       for v in "${PYTHON_VERSIONS[@]}"; do
         docker run --rm shushen/tox python$v --version
-        docker run --rm shushen/tox test -f /root/.pyenv/versions/$v/bin/tox
-        docker run --rm shushen/tox test -f /root/.pyenv/versions/$v/bin/pip
+        docker run --rm shushen/tox pip$v --version
+        docker run --rm shushen/tox pip$v freeze |grep tox
       done
